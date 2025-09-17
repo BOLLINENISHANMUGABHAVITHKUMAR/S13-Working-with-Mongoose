@@ -10,7 +10,7 @@ function required(name) {
 function buildAtlasUri() {
   const user = required("MONGO_USER");
   const pwd = required("MONGO_PASSWORD");
-  return `mongodb+srv://${user}:${pwd}@s13-working-with-mongoo.qdcvhtx.mongodb.net/shop?retryWrites=true&w=majority&appName=S13-Working-with-Mongoose`;
+  return `mongodb+srv://${user}:${pwd}@nodejs-course.tvid3w8.mongodb.net/s13-shop?retryWrites=true&w=majority&appName=NodeJS-Coursee`;
 }
 
 // * connecting to the 'shop' database using Mongoose

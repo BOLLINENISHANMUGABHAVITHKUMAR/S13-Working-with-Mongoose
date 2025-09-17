@@ -1,167 +1,169 @@
-const { getDb } = require("../src/db/database");
+// * will be uncommented in the future
 
-const ObjectId = require("mongodb").ObjectId;
+// const { getDb } = require("../src/db/database");
 
-// ! User authentication will be implemented in the future
-class User {
-  constructor(id, username, email, cart) {
-    this._id = id;
-    this.name = username;
-    this.email = email;
-    this.cart = cart; // { items: [{cartItem}, {cartItem}] }
-  }
+// const ObjectId = require("mongodb").ObjectId;
 
-  async save() {
-    try {
-      const db = getDb();
-      const result = await db.collection("users").insertOne(this);
-      console.log("DB collection 'users' .save() result:", result); // DEBUGGING
-      return result;
-    } catch (err) {
-      const error = new Error("Failed to save user");
-      error.details = err;
-      throw error;
-    }
-  }
+// // ! User authentication will be implemented in the future
+// class User {
+//   constructor(id, username, email, cart) {
+//     this._id = id;
+//     this.name = username;
+//     this.email = email;
+//     this.cart = cart; // { items: [{cartItem}, {cartItem}] }
+//   }
 
-  getCart() {
-    try {
-      const cartItems = this.cart.items;
-      // console.log("Cart items:", cartItems); // DEBUGGING
+//   async save() {
+//     try {
+//       const db = getDb();
+//       const result = await db.collection("users").insertOne(this);
+//       console.log("DB collection 'users' .save() result:", result); // DEBUGGING
+//       return result;
+//     } catch (err) {
+//       const error = new Error("Failed to save user");
+//       error.details = err;
+//       throw error;
+//     }
+//   }
 
-      return cartItems;
-    } catch (err) {
-      const error = new Error("Failed to get cart data");
-      error.details = err;
-      throw error;
-    }
-  }
+//   getCart() {
+//     try {
+//       const cartItems = this.cart.items;
+//       // console.log("Cart items:", cartItems); // DEBUGGING
 
-  async deleteItemFromCart(productId) {
-    try {
-      const updatedCartItems = this.cart.items.filter((cartItem) => {
-        return cartItem._id.toString() !== productId.toString();
-      });
-      // console.log("Updated cart items:", updatedCartItems); // DEBUGGING
+//       return cartItems;
+//     } catch (err) {
+//       const error = new Error("Failed to get cart data");
+//       error.details = err;
+//       throw error;
+//     }
+//   }
 
-      const db = getDb();
-      const result = await db
-        .collection("users")
-        .updateOne(
-          { _id: new ObjectId(`${this._id}`) },
-          { $set: { cart: { items: updatedCartItems } } }
-        );
+//   async deleteItemFromCart(productId) {
+//     try {
+//       const updatedCartItems = this.cart.items.filter((cartItem) => {
+//         return cartItem._id.toString() !== productId.toString();
+//       });
+//       // console.log("Updated cart items:", updatedCartItems); // DEBUGGING
 
-      return result;
-    } catch (err) {
-      const error = new Error("Failed to delete product from cart");
-      error.details = err;
-      throw error;
-    }
-  }
+//       const db = getDb();
+//       const result = await db
+//         .collection("users")
+//         .updateOne(
+//           { _id: new ObjectId(`${this._id}`) },
+//           { $set: { cart: { items: updatedCartItems } } }
+//         );
 
-  async addToCart(product) {
-    try {
-      // console.log("Added Product:", product); // DEBUGGING
+//       return result;
+//     } catch (err) {
+//       const error = new Error("Failed to delete product from cart");
+//       error.details = err;
+//       throw error;
+//     }
+//   }
 
-      // ! conversion to string is needed, comparing two 'ObjectId' objects won't work
-      const existingProductIndex = this.cart.items.findIndex((prod) => {
-        return prod._id.toString() === product._id.toString();
-      });
-      // console.log("Existing prod index:", existingProductIndex); // DEBUGGING
+//   async addToCart(product) {
+//     try {
+//       // console.log("Added Product:", product); // DEBUGGING
 
-      let updatedCart;
+//       // ! conversion to string is needed, comparing two 'ObjectId' objects won't work
+//       const existingProductIndex = this.cart.items.findIndex((prod) => {
+//         return prod._id.toString() === product._id.toString();
+//       });
+//       // console.log("Existing prod index:", existingProductIndex); // DEBUGGING
 
-      // ^ if cart product already exists, increase quantity
-      if (existingProductIndex !== -1) {
-        updatedCart = { items: [...this.cart.items] };
-        updatedCart.items[existingProductIndex].quantity += 1;
-      } else {
-        updatedCart = {
-          items: [...this.cart.items, { ...product, quantity: 1 }],
-        };
-      }
+//       let updatedCart;
 
-      // console.log("Updated Cart:", updatedCart); // DEBUGGING
+//       // ^ if cart product already exists, increase quantity
+//       if (existingProductIndex !== -1) {
+//         updatedCart = { items: [...this.cart.items] };
+//         updatedCart.items[existingProductIndex].quantity += 1;
+//       } else {
+//         updatedCart = {
+//           items: [...this.cart.items, { ...product, quantity: 1 }],
+//         };
+//       }
 
-      const db = getDb();
-      const result = await db
-        .collection("users")
-        .updateOne({ _id: this._id }, { $set: { cart: updatedCart } });
+//       // console.log("Updated Cart:", updatedCart); // DEBUGGING
 
-      // console.log("Result of adding to Cart:", result); // DEBUGGING
-      return result;
-    } catch (err) {
-      const error = new Error("Failed to add item to cart");
-      error.details = err;
-      throw error;
-    }
-  }
+//       const db = getDb();
+//       const result = await db
+//         .collection("users")
+//         .updateOne({ _id: this._id }, { $set: { cart: updatedCart } });
 
-  // ! bonus validation / snapshot for cart items is required and will be implemented in the futue
-  // * if user adds a product to cart, and then the product data gets modified, the change wont be reflected both in addToCart and in addOrder    -    which is a problem!
+//       // console.log("Result of adding to Cart:", result); // DEBUGGING
+//       return result;
+//     } catch (err) {
+//       const error = new Error("Failed to add item to cart");
+//       error.details = err;
+//       throw error;
+//     }
+//   }
 
-  async addOrder() {
-    try {
-      const db = getDb();
-      const order = {
-        user: {
-          _id: new ObjectId(`${this._id}`),
-          name: this.name,
-          email: this.email,
-        },
-        items: this.cart.items,
-      };
-      const result = await db.collection("orders").insertOne(order);
-      console.log("Result of adding an order:", result); // DEBUGGING
+//   // ! bonus validation / snapshot for cart items is required and will be implemented in the futue
+//   // * if user adds a product to cart, and then the product data gets modified, the change wont be reflected both in addToCart and in addOrder    -    which is a problem!
 
-      if (!result) new Error("Failed to add an order");
+//   async addOrder() {
+//     try {
+//       const db = getDb();
+//       const order = {
+//         user: {
+//           _id: new ObjectId(`${this._id}`),
+//           name: this.name,
+//           email: this.email,
+//         },
+//         items: this.cart.items,
+//       };
+//       const result = await db.collection("orders").insertOne(order);
+//       console.log("Result of adding an order:", result); // DEBUGGING
 
-      // delete all cart items
-      this.cart = { items: [] };
-      return await db
-        .collection("users")
-        .updateOne(
-          { _id: new ObjectId(`${this._id}`) },
-          { $set: { cart: { items: [] } } }
-        );
-    } catch (err) {
-      const error = new Error("Failed to add an order");
-      error.details = err;
-      throw error;
-    }
-  }
+//       if (!result) new Error("Failed to add an order");
 
-  async getOrders() {
-    try {
-      const db = getDb();
-      const orders = await db
-        .collection("orders")
-        .find({ "user._id": new ObjectId(`${this._id}`) })
-        .toArray();
+//       // delete all cart items
+//       this.cart = { items: [] };
+//       return await db
+//         .collection("users")
+//         .updateOne(
+//           { _id: new ObjectId(`${this._id}`) },
+//           { $set: { cart: { items: [] } } }
+//         );
+//     } catch (err) {
+//       const error = new Error("Failed to add an order");
+//       error.details = err;
+//       throw error;
+//     }
+//   }
 
-      console.log("Result of getting orders:", orders); // DEBUGGING
+//   async getOrders() {
+//     try {
+//       const db = getDb();
+//       const orders = await db
+//         .collection("orders")
+//         .find({ "user._id": new ObjectId(`${this._id}`) })
+//         .toArray();
 
-      return orders;
-    } catch (err) {
-      const error = new Error("Failed to add an order");
-      error.details = err;
-      throw error;
-    }
-  }
+//       console.log("Result of getting orders:", orders); // DEBUGGING
 
-  static async findUserById(id) {
-    try {
-      const db = getDb();
-      const user = await db.collection("users").findOne({ _id: id });
-      // console.log("Found user:", user); // DEBUGGING
-      return user;
-    } catch (err) {
-      const error = new Error("Failed to find user by ID:", id);
-      error.details = err;
-      throw error;
-    }
-  }
-}
+//       return orders;
+//     } catch (err) {
+//       const error = new Error("Failed to add an order");
+//       error.details = err;
+//       throw error;
+//     }
+//   }
 
-module.exports = { User };
+//   static async findUserById(id) {
+//     try {
+//       const db = getDb();
+//       const user = await db.collection("users").findOne({ _id: id });
+//       // console.log("Found user:", user); // DEBUGGING
+//       return user;
+//     } catch (err) {
+//       const error = new Error("Failed to find user by ID:", id);
+//       error.details = err;
+//       throw error;
+//     }
+//   }
+// }
+
+// module.exports = { User };

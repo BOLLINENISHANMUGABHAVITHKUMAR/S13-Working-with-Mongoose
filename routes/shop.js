@@ -6,20 +6,25 @@ const router = express.Router();
 
 const catchErrAsync = require("../utils/catchErrAsync");
 
-router.get("/", catchErrAsync(shopController.getIndex));
+// * will be uncommented in the future
 
-router.get("/products", catchErrAsync(shopController.getProductsPage));
+// router.get("/", catchErrAsync(shopController.getIndex));
 
-router.get("/products/:id", catchErrAsync(shopController.getProduct));
+// router.get("/products", catchErrAsync(shopController.getProductsPage));
 
-router.get("/cart", catchErrAsync(shopController.getCart));
+// router.get("/products/:id", catchErrAsync(shopController.getProduct));
 
-router.post("/cart", catchErrAsync(shopController.postCart));
+// router.get("/cart", catchErrAsync(shopController.getCart));
 
-router.post("/cart/delete/:productId", catchErrAsync(shopController.postDeleteCart))
+// router.post("/cart", catchErrAsync(shopController.postCart));
 
-router.get("/orders", catchErrAsync(shopController.getOrders));
+// router.post(
+//   "/cart/delete/:productId",
+//   catchErrAsync(shopController.postDeleteCart)
+// );
 
-router.post("/orders/create", catchErrAsync(shopController.postOrder))
+// router.get("/orders", catchErrAsync(shopController.getOrders));
+
+// router.post("/orders/create", catchErrAsync(shopController.postOrder));
 
 module.exports = router;

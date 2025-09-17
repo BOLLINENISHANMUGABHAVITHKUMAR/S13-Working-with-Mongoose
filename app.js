@@ -2,7 +2,6 @@ const path = require("path");
 const express = require("express");
 require("dotenv").config();
 
-
 const { User } = require("./models/user");
 
 const errorController = require("./controllers/error");
@@ -23,21 +22,23 @@ const catchErrAsync = require("./utils/catchErrAsync");
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
+// * will be uncommented in the future
+
 // dummy User selector
-const USER_ID = new ObjectId(`${"68c59cebf2b7f6e17ff9ea08"}`);
+// const USER_ID = new ObjectId(`${"68c59cebf2b7f6e17ff9ea08"}`);
 
-// ! user authentication will be implemented in the future
-app.use(
-  catchErrAsync(async (req, res, next) => {
-    const user = await User.findUserById(USER_ID);
-    if (!user) {
-      throw new Error(`Could not find user!`);
-    }
+// // ! user authentication will be implemented in the future
+// app.use(
+//   catchErrAsync(async (req, res, next) => {
+//     const user = await User.findUserById(USER_ID);
+//     if (!user) {
+//       throw new Error(`Could not find user!`);
+//     }
 
-    req.user = new User(user._id, user.name, user.email, user.cart);
-    next();
-  })
-);
+//     req.user = new User(user._id, user.name, user.email, user.cart);
+//     next();
+//   })
+// );
 
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);

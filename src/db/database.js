@@ -1,51 +1,42 @@
 require("dotenv").config();
-const { MongoClient } = require("mongodb");
+const mongoose = require("mongoose");
 
 function required(name) {
   const v = process.env[name];
-
   if (!v) throw new Error(`Missing .env var: ${name}`);
   return v;
 }
 
-let _db;
-let _client;
-
 function buildAtlasUri() {
   const user = required("MONGO_USER");
   const pwd = required("MONGO_PASSWORD");
-  return `mongodb+srv://${user}:${pwd}@nodejs-course-s12.dktw6kd.mongodb.net/shop?retryWrites=true&w=majority&appName=NodeJS-Course-S12`;
+  return `mongodb+srv://${user}:${pwd}@s13-working-with-mongoo.qdcvhtx.mongodb.net/shop?retryWrites=true&w=majority&appName=S13-Working-with-Mongoose`;
 }
 
-// * connecting to the 'shop' database
+// * connecting to the 'shop' database using Mongoose
 async function mongoConnect(callback) {
   try {
     let uri;
     if (process.env.USE_MONGODB_ATLAS === "true") uri = buildAtlasUri();
     else uri = process.env.MONGODB_URI;
 
-    _client = new MongoClient(uri);
-    await _client.connect();
-
-    _db = _client.db() || _client.db("shop");
-
+    // TODO fix connection for local machines (not MongoDB Atlas)
     if (typeof callback === "function") return callback();
-    return;
+    else return await mongoose.connect(uri, {
+      dbName: "shop",
+    });
+
+    // return;
   } catch (error) {
     throw new Error(
-      "An error occured whilst trying to connect to MongoDB:",
+      "An error occurred whilst trying to connect to MongoDB:",
       error
     );
   }
 }
 
-const getDb = () => {
-  if (_db) return _db;
-  throw new Error("No database found!");
-};
+function close() {
+  return mongoose.connection.close();
+}
 
-const close = async () => {
-  if (_client) await _client.close();
-};
-
-module.exports = { mongoConnect, getDb, close };
+module.exports = { mongoConnect, close, mongoose };

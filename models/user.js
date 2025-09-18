@@ -27,6 +27,19 @@ const userSchema = new Schema({
   },
 });
 
+userSchema.methods.getCart = async function () {
+  try {
+    const userData = await this.populate("cart.items.productId");
+    console.log("Cart items:", userData); // DEBUGGING
+
+    return userData.cart.items;
+  } catch (err) {
+    const error = new Error("Failed to get cart data");
+    error.details = err;
+    throw error;
+  }
+};
+
 // ? refactor using Mongoose built-in methods?
 userSchema.methods.addToCart = async function (productData) {
   try {

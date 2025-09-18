@@ -55,7 +55,7 @@ exports.postAddProduct = async (req, res, next) => {
     price,
     description,
     imageUrl,
-    // req.user._id
+    userId: req.user._id,
   });
   console.log("Added product data:", product); // DEBUGGING
   await product.save();

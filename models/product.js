@@ -9,6 +9,7 @@ const productSchema = new Schema({
   price: { type: Number, required: true },
   description: { type: String, required: true },
   imageUrl: { type: String, required: true },
+  userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
 });
 
 // ^ pagination is currently unnecessary, app won't be handling thousands of products at once (because there aren't so many)

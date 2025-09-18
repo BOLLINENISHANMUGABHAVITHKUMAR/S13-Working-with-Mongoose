@@ -45,9 +45,9 @@ userSchema.methods.addToCart = async function (productData) {
   try {
     // ! conversion to string is needed, comparing two 'ObjectId' objects won't work
     const existingProductIndex = this.cart.items.findIndex((prod) => {
-      return prod._id.toString() === productData._id.toString();
+      return prod.productId.toString() === productData._id.toString();
     });
-    // console.log("Existing prod index:", existingProductIndex); // DEBUGGING
+    console.log("Existing prod index:", existingProductIndex); // DEBUGGING
 
     let updatedCart;
 

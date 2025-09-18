@@ -9,7 +9,7 @@ const catchErrAsync = require("../utils/catchErrAsync");
 // * will be uncommented in the future
 
 // // /admin/products => GET
-// router.get("/products", catchErrAsync(adminController.getProductsPage));
+router.get("/products", catchErrAsync(adminController.getProductsPage));
 
 // /admin/add-product => GET
 router.get("/add-product", catchErrAsync(adminController.getAddProduct));
@@ -22,7 +22,7 @@ router.get(
   catchErrAsync(adminController.getEditProduct)
 );
 
-// router.post("/edit-product", catchErrAsync(adminController.postEditProduct));
+router.post("/edit-product", catchErrAsync(adminController.postEditProduct));
 
 // router.post(
 //   "/delete/:productId",

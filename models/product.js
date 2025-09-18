@@ -23,6 +23,29 @@ productSchema.statics.fetchAll = async function () {
   }
 };
 
+productSchema.statics.editProductById = async function (
+  id,
+  title,
+  price,
+  description,
+  imageUrl
+) {
+  try {
+    const updatedProduct = await this.findByIdAndUpdate(
+      id,
+      { title, price, description, imageUrl },
+      { new: true, runValidations: true }
+    );
+
+    console.log("Updated product data:", updatedProduct); // DEBUGGING
+    return updatedProduct;
+  } catch (err) {
+    const error = new Error("Failed update product with ID:", id);
+    error.details = err;
+    throw error;
+  }
+};
+
 productSchema.statics.findProductById = async function (id) {
   try {
     const product = await this.findById(id);

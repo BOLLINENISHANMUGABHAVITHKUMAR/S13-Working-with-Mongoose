@@ -1,7 +1,9 @@
 const Product = require("../models/product");
 
+// TODO bring back userId filter functionality to admin products
 exports.getProductsPage = async (req, res, next) => {
-  const products = await Product.fetchAll(req.user._id);
+  // const products = await Product.fetchAll(req.user._id);
+  const products = await Product.fetchAll();
   res.render("admin/products", {
     products,
     pageTitle: "Admin Products",
@@ -26,8 +28,14 @@ exports.getEditProduct = async (req, res, next) => {
 
 exports.postEditProduct = async (req, res, next) => {
   const id = req.body.productId;
-  const { title, description, imageUrl, price } = req.body;
-  const product = new Product(id, title, price, description, imageUrl);
+  const { title, price, description, imageUrl } = req.body;
+  const product = await Product.editProductById(
+    id,
+    title,
+    price,
+    description,
+    imageUrl
+  );
 
   console.log("controllers/admin.js | Edited productId: ", id); // DEBUGGING
   await product.save();

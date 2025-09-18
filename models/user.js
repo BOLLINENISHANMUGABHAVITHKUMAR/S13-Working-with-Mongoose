@@ -27,6 +27,31 @@ const userSchema = new Schema({
   },
 });
 
+// ? refactor using Mongoose built-in methods?
+userSchema.methods.addToCart = async function (productData) {
+  // ! conversion to string is needed, comparing two 'ObjectId' objects won't work
+  const existingProductIndex = this.cart.items.findIndex((prod) => {
+    return prod._id.toString() === productData._id.toString();
+  });
+  // console.log("Existing prod index:", existingProductIndex); // DEBUGGING
+
+  let updatedCart;
+
+  // ^ if cart product already exists, increase quantity
+  if (existingProductIndex !== -1) {
+    updatedCart = { items: [...this.cart.items] };
+    updatedCart.items[existingProductIndex].quantity += 1;
+  } else {
+    updatedCart = {
+      items: [...this.cart.items, { productId: productData._id, quantity: 1 }],
+    };
+  }
+  console.log("Updated Cart:", updatedCart); // DEBUGGING
+
+  this.cart = updatedCart;
+  await this.save();
+};
+
 module.exports = mongoose.model("User", userSchema);
 
 // const { getDb } = require("../src/db/database");

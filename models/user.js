@@ -30,7 +30,7 @@ const userSchema = new Schema({
 userSchema.methods.getCart = async function () {
   try {
     const userData = await this.populate("cart.items.productId");
-    console.log("Cart items:", userData); // DEBUGGING
+    // console.log("Cart items:", userData); // DEBUGGING
 
     return userData.cart.items;
   } catch (err) {
@@ -63,12 +63,29 @@ userSchema.methods.addToCart = async function (productData) {
         ],
       };
     }
-    console.log("Updated Cart:", updatedCart); // DEBUGGING
+    // console.log("Updated Cart:", updatedCart); // DEBUGGING
 
     this.cart = updatedCart;
     await this.save();
   } catch (err) {
     const error = new Error("Failed to add item to cart");
+    error.details = err;
+    throw error;
+  }
+};
+
+// ? refactor using Mongoose built-in methods?
+userSchema.methods.deleteItemFromCart = async function (productId) {
+  try {
+    const updatedCartItems = this.cart.items.filter((cartItem) => {
+      return cartItem.productId.toString() !== productId.toString();
+    });
+    // console.log("Updated cart items:", updatedCartItems); // DEBUGGING
+
+    this.cart.items = updatedCartItems;
+    return this.save();
+  } catch (err) {
+    const error = new Error("Failed to delete product from cart");
     error.details = err;
     throw error;
   }

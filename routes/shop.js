@@ -12,7 +12,7 @@ router.get("/", catchErrAsync(shopController.getIndex));
 
 router.get("/products", catchErrAsync(shopController.getProductsPage));
 
-// router.get("/products/:id", catchErrAsync(shopController.getProduct));
+router.get("/products/:id", catchErrAsync(shopController.getProduct));
 
 // router.get("/cart", catchErrAsync(shopController.getCart));
 

@@ -17,10 +17,10 @@ router.get("/add-product", catchErrAsync(adminController.getAddProduct));
 // /admin/add-product => POST
 router.post("/add-product", catchErrAsync(adminController.postAddProduct));
 
-// router.get(
-//   "/edit-product/:productId",
-//   catchErrAsync(adminController.getEditProduct)
-// );
+router.get(
+  "/edit-product/:productId",
+  catchErrAsync(adminController.getEditProduct)
+);
 
 // router.post("/edit-product", catchErrAsync(adminController.postEditProduct));
 

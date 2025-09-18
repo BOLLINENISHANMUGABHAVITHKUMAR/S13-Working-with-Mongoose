@@ -11,12 +11,24 @@ const productSchema = new Schema({
   imageUrl: { type: String, required: true },
 });
 
+// ^ pagination is currently unnecessary, app won't be handling thousands of products at once (because there aren't so many)
 productSchema.statics.fetchAll = async function () {
   try {
     const products = await this.find();
-    return Promise.resolve(products);
+    return products;
   } catch (err) {
     const error = new Error("Failed to fetch products");
+    error.details = err;
+    throw error;
+  }
+};
+
+productSchema.statics.findProductById = async function (id) {
+  try {
+    const product = await this.findById(id);
+    return product;
+  } catch (err) {
+    const error = new Error("Failed to fetch product with ID:", id);
     error.details = err;
     throw error;
   }

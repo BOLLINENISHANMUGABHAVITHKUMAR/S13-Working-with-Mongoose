@@ -22,23 +22,30 @@ const catchErrAsync = require("./utils/catchErrAsync");
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
-// * will be uncommented in the future
-
 // dummy User selector
-// const USER_ID = new ObjectId(`${"68c59cebf2b7f6e17ff9ea08"}`);
+const USER_ID = new ObjectId("68c59cebf2b7f6e17ff9ea08");
+const EXAMPLE_USER = {
+  name: "Igor",
+  email: "test@example.com",
+  cart: {
+    items: [],
+  },
+};
 
-// // ! user authentication will be implemented in the future
-// app.use(
-//   catchErrAsync(async (req, res, next) => {
-//     const user = await User.findUserById(USER_ID);
-//     if (!user) {
-//       throw new Error(`Could not find user!`);
-//     }
-
-//     req.user = new User(user._id, user.name, user.email, user.cart);
-//     next();
-//   })
-// );
+// ! user authentication will be implemented in the future
+app.use(
+  catchErrAsync(async (req, res, next) => {
+    let user = await User.findById(USER_ID);
+    if (!user) {
+      user = await User.create({
+        _id: USER_ID,
+        ...EXAMPLE_USER,
+      });
+    }
+    req.user = user;
+    next();
+  })
+);
 
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);

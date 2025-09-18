@@ -12,9 +12,9 @@ const productSchema = new Schema({
 });
 
 // ^ pagination is currently unnecessary, app won't be handling thousands of products at once (because there aren't so many)
-productSchema.statics.fetchAll = async function () {
+productSchema.statics.fetchAll = async function (filter) {
   try {
-    const products = await this.find();
+    const products = await this.find(filter ? { userId: filter } : {});
     return products;
   } catch (err) {
     const error = new Error("Failed to fetch products");

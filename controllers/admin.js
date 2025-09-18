@@ -1,9 +1,7 @@
 const Product = require("../models/product");
 
-// TODO bring back userId filter functionality to admin products
 exports.getProductsPage = async (req, res, next) => {
-  // const products = await Product.fetchAll(req.user._id);
-  const products = await Product.fetchAll();
+  const products = await Product.fetchAll(req.user._id);
   res.render("admin/products", {
     products,
     pageTitle: "Admin Products",

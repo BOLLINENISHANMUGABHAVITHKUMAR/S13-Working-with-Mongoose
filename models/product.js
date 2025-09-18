@@ -11,6 +11,17 @@ const productSchema = new Schema({
   imageUrl: { type: String, required: true },
 });
 
+productSchema.statics.fetchAll = async function () {
+  try {
+    const products = await this.find();
+    return Promise.resolve(products);
+  } catch (err) {
+    const error = new Error("Failed to fetch products");
+    error.details = err;
+    throw error;
+  }
+};
+
 module.exports = mongoose.model("Product", productSchema);
 
 // const mongodb = require("mongodb");

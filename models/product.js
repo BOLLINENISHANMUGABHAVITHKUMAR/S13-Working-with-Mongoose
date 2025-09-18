@@ -57,6 +57,16 @@ productSchema.statics.findProductById = async function (id) {
   }
 };
 
+productSchema.statics.deleteProduct = async function (id) {
+  try {
+    await this.findByIdAndDelete(id);
+  } catch (err) {
+    const error = new Error("Failed to delete product with ID:", id);
+    error.details = err;
+    throw error;
+  }
+};
+
 module.exports = mongoose.model("Product", productSchema);
 
 // const mongodb = require("mongodb");

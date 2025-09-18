@@ -1,4 +1,4 @@
-const { Product } = require("../models/product");
+const Product = require("../models/product");
 
 exports.getProductsPage = async (req, res, next) => {
   const products = await Product.fetchAll(req.user._id);
@@ -44,13 +44,13 @@ exports.getAddProduct = (req, res, next) => {
 
 exports.postAddProduct = async (req, res, next) => {
   const { title, imageUrl, description, price } = req.body;
-  const product = new Product(
+  const product = new Product({
     title,
     price,
     description,
     imageUrl,
-    req.user._id
-  );
+    // req.user._id
+  });
   console.log("Added product data:", product); // DEBUGGING
   await product.save();
   res.redirect(`/products`);

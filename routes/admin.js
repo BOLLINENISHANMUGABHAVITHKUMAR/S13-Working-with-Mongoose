@@ -8,14 +8,14 @@ const catchErrAsync = require("../utils/catchErrAsync");
 
 // * will be uncommented in the future
 
-// // /admin/add-product => GET
-// router.get("/add-product", catchErrAsync(adminController.getAddProduct));
-
 // // /admin/products => GET
 // router.get("/products", catchErrAsync(adminController.getProductsPage));
 
-// // /admin/add-product => POST
-// router.post("/add-product", catchErrAsync(adminController.postAddProduct));
+// /admin/add-product => GET
+router.get("/add-product", catchErrAsync(adminController.getAddProduct));
+
+// /admin/add-product => POST
+router.post("/add-product", catchErrAsync(adminController.postAddProduct));
 
 // router.get(
 //   "/edit-product/:productId",

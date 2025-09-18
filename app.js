@@ -2,7 +2,7 @@ const path = require("path");
 const express = require("express");
 require("dotenv").config();
 
-const { User } = require("./models/user");
+const User = require("./models/user");
 
 const errorController = require("./controllers/error");
 

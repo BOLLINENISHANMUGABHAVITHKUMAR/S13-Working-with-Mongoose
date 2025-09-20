@@ -1,4 +1,4 @@
-// * will be uncommented in the future
+const Order = require("./order");
 
 const mongoose = require("mongoose");
 
@@ -86,6 +86,55 @@ userSchema.methods.deleteItemFromCart = async function (productId) {
     return this.save();
   } catch (err) {
     const error = new Error("Failed to delete product from cart");
+    error.details = err;
+    throw error;
+  }
+};
+
+userSchema.methods.clearCart = function () {
+  this.cart = { items: [] };
+  return this.save();
+};
+
+userSchema.methods.getOrders = async function () {
+  try {
+    const orders = await Order.find({ "user.userId": this._id });
+    return orders;
+  } catch (err) {
+    const error = new Error("Failed to find orders");
+    error.details = err;
+    throw error;
+  }
+};
+
+userSchema.methods.addOrder = async function () {
+  try {
+    const userData = await this.populate("cart.items.productId");
+    const products = userData.cart.items.map((item) => {
+      return {
+        productData: {
+          title: item.productId.title,
+          price: item.productId.price,
+          description: item.productId.description,
+          imageUrl: item.productId.imageUrl,
+        },
+        quantity: item.quantity,
+      };
+    });
+    const order = new Order({
+      user: {
+        name: this.name,
+        userId: this._id,
+      },
+      products,
+    });
+
+    console.log("Created order:", order); // DEBUGGING
+
+    order.save();
+    this.clearCart();
+  } catch (err) {
+    const error = new Error("Failed to add an order");
     error.details = err;
     throw error;
   }

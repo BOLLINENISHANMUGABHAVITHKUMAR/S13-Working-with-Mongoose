@@ -23,8 +23,8 @@ router.post(
   catchErrAsync(shopController.postDeleteCart)
 );
 
-// router.get("/orders", catchErrAsync(shopController.getOrders));
+router.get("/orders", catchErrAsync(shopController.getOrders));
 
-// router.post("/orders/create", catchErrAsync(shopController.postOrder));
+router.post("/orders/create", catchErrAsync(shopController.postOrder));
 
 module.exports = router;

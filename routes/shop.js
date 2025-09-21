@@ -6,8 +6,6 @@ const router = express.Router();
 
 const catchErrAsync = require("../utils/catchErrAsync");
 
-// * will be uncommented in the future
-
 router.get("/", catchErrAsync(shopController.getIndex));
 
 router.get("/products", catchErrAsync(shopController.getProductsPage));

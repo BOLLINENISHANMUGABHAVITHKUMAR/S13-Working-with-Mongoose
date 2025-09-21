@@ -22,11 +22,8 @@ async function mongoConnect(callback) {
 
     // TODO fix connection for local machines (not MongoDB Atlas)
     if (typeof callback === "function") callback();
-    // callback();
 
     return await mongoose.connect(uri);
-
-    // return;
   } catch (error) {
     throw new Error(
       "An error occurred whilst trying to connect to MongoDB:",

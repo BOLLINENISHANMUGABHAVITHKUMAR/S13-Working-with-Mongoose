@@ -1,3 +1,5 @@
+const newError = require("../utils/newError");
+
 const Order = require("./order");
 
 const mongoose = require("mongoose");
@@ -33,10 +35,8 @@ userSchema.methods.getCart = async function () {
     // console.log("Cart items:", userData); // DEBUGGING
 
     return userData.cart.items;
-  } catch (err) {
-    const error = new Error("Failed to get cart data");
-    error.details = err;
-    throw error;
+  } catch (error) {
+    throw newError("Failed to get cart data", error);
   }
 };
 
@@ -67,10 +67,8 @@ userSchema.methods.addToCart = async function (productData) {
 
     this.cart = updatedCart;
     await this.save();
-  } catch (err) {
-    const error = new Error("Failed to add item to cart");
-    error.details = err;
-    throw error;
+  } catch (error) {
+    throw newError("Failed to add item to cart", error);
   }
 };
 
@@ -84,16 +82,18 @@ userSchema.methods.deleteItemFromCart = async function (productId) {
 
     this.cart.items = updatedCartItems;
     return this.save();
-  } catch (err) {
-    const error = new Error("Failed to delete product from cart");
-    error.details = err;
-    throw error;
+  } catch (error) {
+    throw newError("Failed to delete product from cart", error);
   }
 };
 
-userSchema.methods.clearCart = function () {
-  this.cart = { items: [] };
-  return this.save();
+userSchema.methods.clearCart = async function () {
+  try {
+    this.cart = { items: [] };
+    return await this.save();
+  } catch (error) {
+    throw newError("Failed to clear cart", error);
+  }
 };
 
 userSchema.methods.getOrders = async function () {
@@ -131,12 +131,10 @@ userSchema.methods.addOrder = async function () {
 
     console.log("Created order:", order); // DEBUGGING
 
-    order.save();
-    this.clearCart();
-  } catch (err) {
-    const error = new Error("Failed to add an order");
-    error.details = err;
-    throw error;
+    await order.save();
+    await this.clearCart();
+  } catch (error) {
+    throw newError("Failed to add an order", error);
   }
 };
 

@@ -1,3 +1,5 @@
+const newError = require("../utils/newError");
+
 const { default: mongoose } = require("mongoose");
 
 const Schema = mongoose.Schema;
@@ -15,10 +17,8 @@ productSchema.statics.fetchAll = async function (filter) {
   try {
     const products = await this.find(filter ? { userId: filter } : {});
     return products;
-  } catch (err) {
-    const error = new Error("Failed to fetch products");
-    error.details = err;
-    throw error;
+  } catch (error) {
+    throw newError("Failed to fetch products", error);
   }
 };
 
@@ -38,10 +38,8 @@ productSchema.statics.editProductById = async function (
 
     console.log("Updated product data:", updatedProduct); // DEBUGGING
     return updatedProduct;
-  } catch (err) {
-    const error = new Error("Failed update product with ID:", id);
-    error.details = err;
-    throw error;
+  } catch (error) {
+    throw newError(`Failed update product with ID: ${id}`, error);
   }
 };
 
@@ -49,20 +47,16 @@ productSchema.statics.findProductById = async function (id) {
   try {
     const product = await this.findById(id);
     return product;
-  } catch (err) {
-    const error = new Error("Failed to fetch product with ID:", id);
-    error.details = err;
-    throw error;
+  } catch (error) {
+    throw newError(`Failed to fetch product with ID: ${id}`, error);
   }
 };
 
 productSchema.statics.deleteProduct = async function (id) {
   try {
     await this.findByIdAndDelete(id);
-  } catch (err) {
-    const error = new Error("Failed to delete product with ID:", id);
-    error.details = err;
-    throw error;
+  } catch (error) {
+    throw newError(`Failed to delete product with ID: ${id}`, error);
   }
 };
 

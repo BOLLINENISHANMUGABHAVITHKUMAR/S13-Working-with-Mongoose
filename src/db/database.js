@@ -20,7 +20,6 @@ async function mongoConnect(callback) {
     if (process.env.USE_MONGODB_ATLAS === "true") uri = buildAtlasUri();
     else uri = process.env.MONGODB_URI;
 
-    // TODO fix connection for local machines (not MongoDB Atlas)
     if (typeof callback === "function") callback();
 
     return await mongoose.connect(uri);

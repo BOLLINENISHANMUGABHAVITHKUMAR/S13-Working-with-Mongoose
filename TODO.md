@@ -8,7 +8,7 @@ Each item will be checked off as it’s implemented.
 ## High Priority
 
 ## Medium Priority
-[ ] Fix MongoDB connection on a local machine (not using MongoDB Atlas)
+[x] Fix MongoDB connection on a local machine (not using MongoDB Atlas)
 
 ## Low Priority / Nice to Have
 

